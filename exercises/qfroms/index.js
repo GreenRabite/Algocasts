@@ -14,6 +14,37 @@
 
 const Stack = require('./stack');
 
-class Queue {}
+class Queue {
+  constructor(){
+    this.pushStack = new Stack();
+    this.popStack = new Stack();
+  }
+
+  add(element){
+    this.pushStack.push(element);
+  }
+
+  remove(){
+    while (this.pushStack.peek() !== undefined) {
+      this.popStack.push(this.pushStack.pop());
+    }
+    let result = this.popStack.pop();
+    while (this.popStack.peek() !== undefined) {
+      this.pushStack.push(this.popStack.pop());
+    }
+    return result;
+  }
+
+  peek(){
+    while (this.pushStack.peek() !== undefined) {
+      this.popStack.push(this.pushStack.pop());
+    }
+    let result = this.popStack.peek();
+    while (this.popStack.peek() !== undefined) {
+      this.pushStack.push(this.popStack.pop());
+    }
+    return result;
+  }
+}
 
 module.exports = Queue;
